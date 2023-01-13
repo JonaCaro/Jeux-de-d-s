@@ -6,71 +6,140 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="Jeux de dés" content="width=device-width,nitial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
   <title>Jeux de dés</title>
 </head>
 
 <body>
-  <!--Balise canvas-->
-  <canvas width="1920" height="970" id="myCanvas"></canvas>
+  <div class="container">
+    <div class="row text-center" id="newGame">
+      <div class="col-sm-12">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg> New Game <!--(fonction qui remet tout les compteurs a zéro)-->
+      </div>
+    </div>
+    <div class="row text-center" id="player">
+      <div class="col-sm-4">
+        <div class="col-sm-12 player1">
+          PLAYER 1
+        </div>
+        <div class="col-sm-12">
+          RoundScore1 <!--(fonction qui affiche la variable roundscore1)-->
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <!--Balise canvas-->
+          <canvas width="600px" height="1100px" id="myCube" class="container"></canvas>
+          <!--(fonction qui affiche le dés qui se lance avec la fonction random pour avoir un chiffre de 1 à 6)-->
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="col-sm-12 player2">
+          PLAYER 2
+        </div>
+        <div class="col-sm-12">
+          RoundScore2<!--(fonction qui affiche la variable roundscore2)-->
+        </div>
+      </div>
+    </div>
+    <div class="row text-center" id="score">
+      <div class="col-sm-4">
+        <!-- tu peux le créer en ctx -->
+        <div class="col-sm-12 globalScore">
+          GlobalScore1 <!-- (fonction qui affiche le globalScore 1) -->
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+          </svg> Roll Dice <!--(fonction qui lance l'animation du dés qui s'arrete sur le chiffre random choisie)-->
+        </div>
+        <div class="col-sm-12">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"/>
+            <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+          </svg> Hold <!--(fonction qui rajoute au joueur son roundscore)-->
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <!-- tu peux le créer en ctx -->
+        <div class="col-sm-12 globalScore">
+          GlobalScore2 <!--(fonction qui affiche le globalScore 2)-->
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!--Import module TRHEE-->
-    <script type="module">
-        import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.module.js';
+<!--Import JavaScripte-->
+<script type="module">
+  //Import module TRHEE
+  import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.module.js';
 
-        // Création de la scène, de la caméra et du renderer
-        let canvasElement = document.getElementById('myCanvas');
-        let scene = new THREE.Scene();
-        let camera = new THREE.PerspectiveCamera(70, canvasElement.width / canvasElement.height, 0.1, 1000);
-        camera.position.z = 4;
-        let renderer = new THREE.WebGLRenderer(
-            {
-                canvas: canvasElement
-            }
-        );
+  // Création de la scène, de la caméra et du renderer
+  let canvasElement = document.getElementById('myCube');
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(70, canvasElement.width / canvasElement.height, 0.1, 1000);
+  camera.position.z = 4;
+  let renderer = new THREE.WebGLRenderer(
+    {
+      canvas: canvasElement
+    }
+  );
 
-        // Création du cube
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const textureAll = [];
-        const texture1 = new THREE.TextureLoader().load("Dés/1.png");
-        const texture2 = new THREE.TextureLoader().load("Dés/2.png");
-        const texture3 = new THREE.TextureLoader().load("Dés/3.png");
-        const texture4 = new THREE.TextureLoader().load("Dés/4.png");
-        const texture5 = new THREE.TextureLoader().load("Dés/5.png");
-        const texture6 = new THREE.TextureLoader().load("Dés/6.png");
-        textureAll.push(new THREE.MeshBasicMaterial({map: texture1}));
-        textureAll.push(new THREE.MeshBasicMaterial({map: texture2}));
-        textureAll.push(new THREE.MeshBasicMaterial({map: texture3}));
-        textureAll.push(new THREE.MeshBasicMaterial({map: texture4}));
-        textureAll.push(new THREE.MeshBasicMaterial({map: texture5}));
-        textureAll.push(new THREE.MeshBasicMaterial({map: texture6}));
-        const boxMesh = new THREE.Mesh(geometry, textureAll);
-        boxMesh.position.set(0, 0, 0);
-        scene.add(boxMesh);
+  // Création du cube
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const textureAll = [];
+  const texture1 = new THREE.TextureLoader().load("Dés/1.png");
+  const texture2 = new THREE.TextureLoader().load("Dés/2.png");
+  const texture3 = new THREE.TextureLoader().load("Dés/3.png");
+  const texture4 = new THREE.TextureLoader().load("Dés/4.png");
+  const texture5 = new THREE.TextureLoader().load("Dés/5.png");
+  const texture6 = new THREE.TextureLoader().load("Dés/6.png");
+  textureAll.push(new THREE.MeshBasicMaterial({ map: texture1 }));
+  textureAll.push(new THREE.MeshBasicMaterial({ map: texture2 }));
+  textureAll.push(new THREE.MeshBasicMaterial({ map: texture3 }));
+  textureAll.push(new THREE.MeshBasicMaterial({ map: texture4 }));
+  textureAll.push(new THREE.MeshBasicMaterial({ map: texture5 }));
+  textureAll.push(new THREE.MeshBasicMaterial({ map: texture6 }));
+  const boxMesh = new THREE.Mesh(geometry, textureAll);
+  boxMesh.position.set(0, 0, 1.5);
+  scene.add(boxMesh);
 
-        // Lumière
-        let light = new THREE.PointLight(0xFFFFFF, 1, 50);
-        light.position.set(0, 0, 3);
-        scene.add(light);
+  // Lumière
+  let light = new THREE.PointLight(0xFFFFFF, 1, 50);
+  light.position.set(0, 0, 3);
+  scene.add(light);
 
-        // Rendu de la scène
-        renderer.setClearColor(0x00ff00); // Ciel blanc
+  // Rendu de la scène
+  renderer.setClearColor(0xffffff); // Ciel blanc
 
-        // Animation du cube
-        const animate = function(){
+  // Animation du cube
+  const animate = function () {
 
-          boxMesh.rotation.x += 0.01;
-          boxMesh.rotation.y += 0.01;
-          renderer.render(scene, camera);
-          requestAnimationFrame(animate)
-        };  
-        
-        animate();
-      
-    </script>
+    boxMesh.rotation.x += 0.01;
+    boxMesh.rotation.y += 0.01;
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate)
+  };
 
-  <!--Import JavaScripte-->
-  <script src="script.js"></script>
+  animate();
+</script>
+
+<!-- Popper CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<!-- Bootstrap CDN JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+  integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<!-- JavaScript -->
+<script src="script.js"></script>
 </body>
 
 </html>
